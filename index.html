@@ -1,0 +1,123 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Pitch tracker</title>
+
+  <link rel="stylesheet" type="text/css" href="ampitch.css">
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script type="text/javascript" src="AudioContextMonkeyPatch.js"></script>
+  <script type="text/javascript" src="fxauto.min.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+
+  <style>
+    body {
+      -webkit-user-select: none;
+    }
+  </style>
+</head>
+
+<body onload="initialise()" onresize="doresize()" oncontextmenu="return false;" onkeydown="dokey(event)"
+  style="overflow:hidden">
+
+  <div id="menubar">
+    <div class="controls">
+      <span class="menubutton" onclick="doRun()" id="runbutton">Run</span>
+      <span class="menubutton" onclick="doPause()" id="runbutton">Pause</span>
+      <span class="menubutton" onclick="doConfig()" ;>Configure</span>
+    </div>
+    <span class="status">Getting ready...</span>
+  </div>
+
+  <div id="main">
+    <canvas class="panel" id="cnv"></canvas>
+  </div>
+
+  <!-- Screen overlay mask -->
+  <div id="mask" class="background" style="visibility:hidden"></div>
+
+  <!-- Configuration File Dialog -->
+  <div id="configdlg" class="modal" style="visibility:hidden">
+    <table border="0" cellpadding="3" cellspacing="3" width="100%">
+      <tr>
+        <td colspan="3">
+          <h3>
+            <center>Configuration</center>
+          </h3>
+        </td>
+      </tr>
+      <tr>
+        <td class="prompt">Minimum Fx (Hz)</td>
+        <td><input class="inputfield" type="text" id="fxmin"></td>
+        <td rowspan="5">
+          <p align="center">Settings<br>
+            <button class="button" onclick="onsetfx(1)">Man</button><br>
+            <button class="button" onclick="onsetfx(2)">Woman</button><br>
+            <button class="button" onclick="onsetfx(3)">Child</button>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td class="prompt">Low Fx (Hz)</td>
+        <td><input class="inputfield" type="text" id="fxlow"></td>
+      </tr>
+      <tr>
+        <td class="prompt">High Fx (Hz)</td>
+        <td><input class="inputfield" type="text" id="fxhigh"></td>
+      </tr>
+      <tr>
+        <td class="prompt">Maximum Fx (Hz)</td>
+        <td><input class="inputfield" type="text" id="fxmax"></td>
+      </tr>
+      <tr>
+        <td class="prompt">Display Time (s)</td>
+        <td><input class="inputfield" type="text" id="disptime"></td>
+      </tr>
+      <tr>
+        <td class="prompt">Horizontal Scroll</td>
+        <td><input class="inputfield" type="radio" id="scroll1" name="scroll">On&nbsp;<input class="inputfield"
+            type="radio" id="scroll0" name="scroll">Off&nbsp;<input class="inputfield" type="radio" id="scroll2"
+            name="scroll">One shot</td>
+      </tr>
+      <tr>
+        <td class="prompt">Amplitude Display</td>
+        <td><input class="inputfield" type="radio" id="amplitude1" name="amplitude">On&nbsp;<input class="inputfield"
+            type="radio" id="amplitude0" name="amplitude">Off</td>
+      </tr>
+      <td class="prompt">Hot lava</td>
+      <td><input class="inputfield" type="text" id="warnOnMin"></td>
+      <tr>
+        <td colspan="3">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <center><button class="button" onclick="onconfigdlg()">OK</button><button class="button"
+              onclick="cancel('configdlg')">Cancel</button></center>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- About Dialog -->
+  <div id="aboutdlg" class="modal" style="visibility:hidden">
+    <table border="0" cellpadding="3" cellspacing="3" width="100%">
+      <tr>
+        <td>
+          <h3>AMPITCH</h3>
+          <p>Real-time Amplitude &amp; Pitch Display
+          <p>Version 1.2
+          <p>&copy; 2016 Mark Huckvale
+          <p>University College London
+          <p>May 2016
+          <p><a href="http://www.speechandhearing.net/">www.speechandhearing.net</a>
+        </td>
+      </tr>
+      <tr>
+        <td><button class="button" onclick="cancel('aboutdlg')">OK</button></td>
+      </tr>
+    </table>
+  </div>
+</body>
+
+</html>
